@@ -1,0 +1,4 @@
+Adicionar SVG nos ícones,
+SafetyArea não funciona,
+Carregar fonte Monstserrat/Gotham
+Remover o Absolute da NavBar quando aparecer uma modal
