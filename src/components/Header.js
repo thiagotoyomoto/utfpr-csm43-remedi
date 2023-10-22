@@ -11,7 +11,7 @@ export function Header(args){
             <Pressable>
                 {args.typeButton == 'menu' ? (
                     <Image
-                        source={require('../assets/icons/iMenu.png')}
+                        source={require('../../assets/icons/iMenu.png')}
                         style={{
                             width: 36,
                             height: 36
@@ -19,7 +19,7 @@ export function Header(args){
                     />
                 ) : (
                     <Image
-                        source={require('../assets/icons/iPackage.png')}
+                        source={require('../../assets/icons/iPackage.png')}
                         style={{
                             width: 36,
                             height: 36

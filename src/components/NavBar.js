@@ -7,7 +7,7 @@ export function NavBar(){
             <View style={styles.navBlock}>
                 <Pressable>
                     <Image
-                        source={require('../assets/icons/iHome.png')}
+                        source={require('../../assets/icons/iHome.png')}
                         style={{
                             width: 36,
                             height: 36,
@@ -16,7 +16,7 @@ export function NavBar(){
                 </Pressable>
                 <Pressable>
                     <Image
-                        source={require('../assets/icons/iPerson.png')}
+                        source={require('../../assets/icons/iPerson.png')}
                         style={{
                             width: 36,
                             height: 36,
@@ -25,7 +25,7 @@ export function NavBar(){
                 </Pressable>
                 <Pressable>
                     <Image
-                        source={require('../assets/icons/iPresc.png')}
+                        source={require('../../assets/icons/iPresc.png')}
                         style={{
                             width: 36,
                             height: 36,
@@ -34,7 +34,7 @@ export function NavBar(){
                 </Pressable>
                 <Pressable>
                     <Image
-                        source={require('../assets/icons/iPackage.png')}
+                        source={require('../../assets/icons/iPackage.png')}
                         style={{
                             width: 36,
                             height: 36,

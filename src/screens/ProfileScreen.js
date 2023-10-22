@@ -12,7 +12,7 @@ export function ProfileScreen() {
         <View style={styles.pictureBox}>
           <Image
             style={styles.profilePicture}
-            source={require('../assets/fotoBonita.jpg')}
+            source={require('../../assets/fotoBonita.jpg')}
           />
         </View>
         <Text style={styles.profileName}>Gato Maluco</Text>
