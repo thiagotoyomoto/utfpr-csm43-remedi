@@ -3,7 +3,7 @@ import {View, Text, Pressable} from 'react-native';
 import {styles} from "../styles/WarningModalStyle.js"
 import {Button} from 'react-native-paper';
 
-export default function WarningModal(){
+export function WarningModal(){
     return (
         <View style={styles.modalBack}>
             <View style={styles.modal}>

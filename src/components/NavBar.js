@@ -2,7 +2,7 @@ import {React} from "react";
 import {View, Image, Pressable} from 'react-native';
 import {styles} from "../styles/NavBarStyle.js"
 
-export default function NavBar(){
+export function NavBar(){
     return (
             <View style={styles.navBlock}>
                 <Pressable>

@@ -2,7 +2,7 @@ import {React} from "react";
 import {View, Text, Pressable, Image} from 'react-native';
 import {styles} from "../styles/HeaderStyle.js"
 
-export default function Header(args){
+export function Header(args){
     return (
         <View style={styles.headerBlock}>
             <Text style={styles.tittle}>
