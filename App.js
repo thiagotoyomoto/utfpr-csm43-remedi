@@ -7,7 +7,7 @@ import NavBar from './src/NavBar';
 import theme from './styles/LoginStyle';
 import Header from './src/Header';
 import WarningModal from './src/WarningModal';
-import Profile from './src/profile';
+import Profile from './src/Profile';
 
 
 const winHeight = Dimensions.get('window').height;

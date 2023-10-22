@@ -13,12 +13,16 @@ export default function Header(args){
                     <Image
                         source={require('../assets/icons/iMenu.png')}
                         style={{
+                            width: 36,
+                            height: 36
                         }}
                     />
                 ) : (
                     <Image
                         source={require('../assets/icons/iPackage.png')}
                         style={{
+                            width: 36,
+                            height: 36
                         }}
                     />
                 )}
