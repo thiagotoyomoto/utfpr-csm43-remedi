@@ -1,10 +1,11 @@
 import React from "react";
+
 import {View } from 'react-native';
-import {Button, Text, TextInput, useTheme,  Provider as PaperProvider} from 'react-native-paper';
+import {Button, Text, TextInput, Provider as PaperProvider} from 'react-native-paper';
+
 import {styles, theme} from '../styles/LoginStyle.js';
 
-export default function Login() {
-
+export function Login() {
     return (
       <PaperProvider theme={theme}>
           <View style={styles.container}> 
@@ -22,7 +23,6 @@ export default function Login() {
               />
               <TextInput
                   label="Senha"
-                  //onChangeText={password => setPassword(password)}
                   secureTextEntry={true}
                   style={[styles.input, styles.passwordInput]}
                 />
@@ -57,4 +57,3 @@ export default function Login() {
    
   );
 }
-
