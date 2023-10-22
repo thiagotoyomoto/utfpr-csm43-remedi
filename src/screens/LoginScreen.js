@@ -5,7 +5,7 @@ import {Button, Text, TextInput, Provider as PaperProvider} from 'react-native-p
 
 import {styles, theme} from '../styles/LoginStyle.js';
 
-export function Login() {
+export function LoginScreen() {
     return (
       <PaperProvider theme={theme}>
           <View style={styles.container}> 
