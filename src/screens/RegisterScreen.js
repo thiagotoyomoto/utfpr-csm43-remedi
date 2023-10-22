@@ -5,7 +5,7 @@ import { Button, Text, TextInput, Provider as PaperProvider } from 'react-native
 
 import { styles, theme } from '../styles/LoginStyle.js';
 
-export default function RegisterScreen() {
+export function RegisterScreen() {
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
