@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "edu.utfpr.csm43.remedi"
     },
     "web": {
       "favicon": "./assets/favicon.png"
