@@ -1,46 +1,27 @@
-import {React} from "react";
-import {View, Image, Pressable} from 'react-native';
-import {styles} from "../styles/NavBarStyle.js"
+import { React } from "react";
+import { View, Image, Pressable } from 'react-native';
+import { styles } from "../styles/NavBarStyle.js";
 
-export function NavBar(){
-    return (
-            <View style={styles.navBlock}>
-                <Pressable>
-                    <Image
-                        source={require('../../assets/icons/iHome.png')}
-                        style={{
-                            width: 36,
-                            height: 36,
-                        }}
-                    />
-                </Pressable>
-                <Pressable>
-                    <Image
-                        source={require('../../assets/icons/iPerson.png')}
-                        style={{
-                            width: 36,
-                            height: 36,
-                        }}
-                    />
-                </Pressable>
-                <Pressable>
-                    <Image
-                        source={require('../../assets/icons/iPresc.png')}
-                        style={{
-                            width: 36,
-                            height: 36,
-                        }}
-                    />
-                </Pressable>
-                <Pressable>
-                    <Image
-                        source={require('../../assets/icons/iPackage.png')}
-                        style={{
-                            width: 36,
-                            height: 36,
-                        }}
-                    />
-                </Pressable>    
-            </View>
-    );
+import HomeIcon from '../../assets/icons/home.svg';
+import PersonIcon from '../../assets/icons/person.svg';
+import PrescriptionsIcon from '../../assets/icons/prescriptions.svg';
+import PackageIcon from '../../assets/icons/package.svg';
+
+export function NavBar() {
+  return (
+    <View style={styles.navBlock}>
+      <Pressable>
+        <HomeIcon width={36} height={36} fill='#2E7FAB' /> 
+      </Pressable>
+      <Pressable>
+        <PersonIcon width={36} height={36} fill='#2E7FAB' /> 
+      </Pressable>
+      <Pressable>
+        <PrescriptionsIcon width={36} height={36} fill='#2E7FAB' /> 
+      </Pressable>
+      <Pressable>
+        <PackageIcon width={36} height={36} fill='#2E7FAB' /> 
+      </Pressable>
+    </View>
+  );
 }
