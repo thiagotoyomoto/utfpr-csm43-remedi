@@ -1,18 +1,21 @@
 import React from "react";
 
-import { View } from 'react-native';
-import { Button, Text, TextInput, Provider as PaperProvider } from 'react-native-paper';
+import { View } from "react-native";
+import {
+  Button,
+  Text,
+  TextInput,
+  Provider as PaperProvider,
+} from "react-native-paper";
 
-import { styles, theme } from '../styles/LoginStyle.js';
+import { styles, theme } from "../styles/LoginStyle.js";
 
 export function RegisterScreen() {
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
         <View>
-          <Text>
-            Cadastro
-          </Text>
+          <Text>Cadastro</Text>
         </View>
         <View>
           <TextInput
@@ -40,10 +43,12 @@ export function RegisterScreen() {
             Confirmar
           </Button>
           <Button>
-            <Text style={{
-              color: "#ED8A2F",
-              textDecorationLine: 'underline',
-            }}>
+            <Text
+              style={{
+                color: "#ED8A2F",
+                textDecorationLine: "underline",
+              }}
+            >
               cancelar
             </Text>
           </Button>

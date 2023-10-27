@@ -1,25 +1,7 @@
 import { StyleSheet, Dimensions  } from 'react-native';
 import {DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-// Largura Tela
-const winWidth = Dimensions.get('window').width;
-const winHeight = Dimensions.get('window').height;
+import {winHeight, winWidth}  from './GlobalStyles';
 
-// Cores
-const colors = {
-    background: "#eaf2f6",
-    primary: "#307FAB",
-    accent: "#ED8A2F"
-}
-
-// Tema
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: colors.primary,
-    accent: colors.accent,
-  },
-};
 
 const styles = StyleSheet.create({
     navBlock: {
@@ -40,4 +22,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export {styles, theme}
+export {styles}

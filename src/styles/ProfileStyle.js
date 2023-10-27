@@ -1,33 +1,19 @@
-import { StyleSheet, Dimensions  } from 'react-native';
-import {DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-// Largura Tela
-const winWidth = Dimensions.get('window').width;
-
-// Cores
-const colors = {
-    background: "#EAF2F6",
-    primary: "#307FAB",
-    accent: "#ED8A2F"
-}
-
-// Tema
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: colors.primary,
-    accent: colors.accent,
-  },
-};
+import { StyleSheet} from 'react-native';
+import {colors}  from './GlobalStyles';
 
 const styles = StyleSheet.create({
     topBox: {
         flex: 1,
         padding: 12,
         backgroundColor: colors.primary,
-        maxHeight: 300,
+        minHeight: 260,
         alignItems: 'center',
         justifyContent: 'space-around'
+    },
+    edit :{
+        position: 'absolute',
+        right: 30,
+        top: 20
     },
     bottomBox: {
 
@@ -48,8 +34,8 @@ const styles = StyleSheet.create({
         elevation: 12,
     },
     profilePicture: {
-        height: 185,
-        width: 185,
+        height: 165,
+        width: 165,
         borderRadius: 100,
         
     },
@@ -63,12 +49,18 @@ const styles = StyleSheet.create({
     achievementsTittle: {
         fontSize: 20
     },
+    badgeList: {
+        width: 42,
+        height: 42,
+        backgroundColor: colors.primary,
+    },
     buttonPremium: {
         width: 200,
         borderRadius: 5, 
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
+        marginBottom: 40
     }
 })
 
-export {styles, theme}
+export {styles}

@@ -1,26 +1,5 @@
-import { color } from '@rneui/base';
-import { StyleSheet, Dimensions  } from 'react-native';
-import {DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-// Largura Tela
-const winWidth = Dimensions.get('window').width;
-const winHeight = Dimensions.get('window').height;
-
-// Cores
-const colors = {
-    background: "#EAF2F6",
-    primary: "#307FAB",
-    accent: "#ED8A2F"
-}
-
-// Tema
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: colors.primary,
-    accent: colors.accent,
-  },
-};
+import { StyleSheet} from 'react-native';
+import {winHeight, winWidth}  from './GlobalStyles';
 
 const styles = StyleSheet.create({
     modalBack: {
@@ -62,4 +41,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export {styles, theme}
+export {styles}
