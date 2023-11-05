@@ -45,11 +45,13 @@ export function LoginScreen() {
 				<TextInput
 					label="Email"
 					autoCompleteType="email"
+					onChangeText={setEmail}
 					style={[styles.input, styles.emailInput]}
 				/>
 				<TextInput
 					label="Senha"
 					secureTextEntry={true}
+					onChangeText={setPassword}
 					style={[styles.input, styles.passwordInput]}
 				/>
 				<Button>
