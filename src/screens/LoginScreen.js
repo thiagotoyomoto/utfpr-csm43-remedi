@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import {
 	Button,
 	Text,
@@ -9,8 +9,28 @@ import {
 } from 'react-native-paper';
 
 import { styles, theme } from '../styles/LoginStyle.js';
+import { supabase } from '../lib/supabase.js';
 
 export function LoginScreen() {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+
+	async function onSignIn() {
+		setIsLoading(true);
+
+		const { error } = await supabase.auth.signInWithPassword({
+			email: email,
+			password: password
+		});
+
+		if(error) {
+			Alert.alert(error.message);
+		}
+
+		setIsLoading(false);
+	}
+
 	return (
 		<PaperProvider theme={theme}>
 			<View style={styles.container}>
@@ -41,6 +61,8 @@ export function LoginScreen() {
 					mode="conteined"
 					buttonColor="#ED8A2F"
 					style={styles.buttonLogin}
+					onPress={onSignIn}
+					disabled={isLoading}
 				>
 					<Text style={styles.textButtonLogin}>Login</Text>
 				</Button>
