@@ -16,13 +16,7 @@ export function Header(args) {
 						fill="#000"
 					/>
 				) : (
-					<Image
-						source={require('../../assets/icons/iPackage.png')}
-						style={{
-							width: 36,
-							height: 36,
-						}}
-					/>
+					<></>
 				)}
 			</Pressable>
 		</View>
