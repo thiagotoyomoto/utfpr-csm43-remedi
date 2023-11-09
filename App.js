@@ -49,16 +49,14 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        {!user ?
-          <Stack.Navigator screenOptions={{
-            headerShown: false
-          }}>
-            <Stack.Screen name="SignIn" component={LoginScreen} />
-            <Stack.Screen name="SignUp/User" component={RegisterUserScreen} />
-            <Stack.Screen name="SignUp/Profile" component={RegisterProfileScreen} />
-          </Stack.Navigator>
-          : <HomeTabs />
-        }
+        <Stack.Navigator screenOptions={{
+          headerShown: false
+        }}>
+          <Stack.Screen name="SignIn" component={LoginScreen} />
+          <Stack.Screen name="SignUp/User" component={RegisterUserScreen} />
+          <Stack.Screen name="SignUp/Profile" component={RegisterProfileScreen} />
+          <Stack.Screen name="HomeTabs" component={HomeTabs} />
+        </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );
