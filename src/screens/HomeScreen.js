@@ -1,17 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import Alert  from '../../assets/icons/alert.svg'
-import NotificationOn from '../../assets/icons/notificationOn.svg'
+import { View, Text, Alert } from 'react-native';
+
+import { supabase } from '../lib/supabase';
+import { Icons } from '../components';
+
 import {styles} from '../styles/HomeScreenStyle';
 
 export function HomeScreen() {
-    
     const [diaDaSemana, setDiaDaSemana] = useState('');
+    const [isLoading, setLoading] = useState(false);
+    const [medications, setMedications] = useState([]);
+
+    useEffect(() => {
+        setLoading(true);
+
+        supabase
+            .from('medications')
+            .select('id,name,frequency,initial_time')
+            .then(({ data, error }) => {
+                if(error) {
+                    Alert.alert(error.message);
+                }
+                if(data) {
+                    console.log(data);
+                    setMedications(data);
+                }
+            })
+            .catch(error => {
+                Alert.alert(error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
       
     useEffect(() => {
-    const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-    const dataAtual = new Date();
-    setDiaDaSemana(diasDaSemana[dataAtual.getDay()]);
+        const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+        const dataAtual = new Date();
+        setDiaDaSemana(diasDaSemana[dataAtual.getDay()]);
     }, []);
 
 	return (
@@ -19,37 +45,25 @@ export function HomeScreen() {
             <Text style={styles.tableTitle}>
                Hoje - {diaDaSemana}
             </Text>
-            {/* loop pra gerar os componentes de acordo com os remedios
-                cadastrados no dia de hoje */}
-            <Medicine/>
-            <Medicine/>
-            <Medicine/>
-            <Medicine/>
+            {medications.map(({ id, name }) => <Medication key={id} time={'10:00'} name={name} />)}
         </View>
 	);
 }
 
-function Medicine(args) {
+function Medication({ time, name }) {
     return (
         <View style={styles.medicine}>
             <View style={styles.medicineRightSide}>
-                <Text style={styles.medicineTime}>{/*args.DateHour*/}12:00</Text>
-                <Text style={styles.medicineName}>{/*args.medicinegName*/}Fluvoxamina</Text>
+                <Text style={styles.medicineTime}>{time}</Text>
+                <Text style={styles.medicineName}>{name}</Text>
             </View>
             <View style={styles.medicineLeftSide}>
-                {/*if args.stock < 7*frequency*/}
-                <Alert
-                    width={36}
-                    height={36}
-                    fill="#CD5555"
-                    style={styles.medicineAlert}
-                />
-                <NotificationOn
-                    width={36}
-                    height={36}
-                    fill="#ED8A2F"
-                    style={styles.medicineNotificationOn}
-                />
+                <View style={styles.medicineAlert}>
+                    <Icons.Warning size={36} color={'#CD5555'} />
+                </View>
+                <View style={styles.medicineNotificationOn}>
+                    <Icons.NotificationsActive size={36} color={'#ED8A2F'} />
+                </View>
             </View>
         </View>
     );

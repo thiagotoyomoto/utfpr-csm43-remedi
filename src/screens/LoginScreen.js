@@ -10,8 +10,11 @@ import {
 
 import { styles, theme } from '../styles/LoginStyle.js';
 import { supabase } from '../lib/supabase.js';
+import { useNavigation } from '@react-navigation/native';
 
 export function LoginScreen() {
+	const navigation = useNavigation();
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +32,10 @@ export function LoginScreen() {
 		}
 
 		setIsLoading(false);
+
+		if(!error) {
+			navigation.replace('HomeTabs');
+		}
 	}
 
 	return (
@@ -68,7 +75,9 @@ export function LoginScreen() {
 				>
 					<Text style={styles.textButtonLogin}>Login</Text>
 				</Button>
-				<Button>
+				<Button onPress={() => {
+					navigation.navigate('SignUp/User')
+				}}>
 					<Text style={{ color: '#FFF' }}>Não possui uma conta?</Text>
 					<View />{' '}
 					<Text

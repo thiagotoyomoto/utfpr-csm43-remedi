@@ -7,10 +7,13 @@ import {
   TextInput,
   Provider as PaperProvider,
 } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 import { styles, theme } from "../styles/LoginStyle.js";
 
-export function RegisterScreen() {
+export function RegisterUserScreen() {
+  const navigation = useNavigation();
+
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
@@ -39,17 +42,22 @@ export function RegisterScreen() {
             mode="conteined"
             buttonColor="#ED8A2F"
             style={styles.buttonLogin}
+            onPress={() => {
+              navigation.navigate('SignUp/Profile');
+            }}
           >
-            Confirmar
+            Continuar
           </Button>
-          <Button>
+          <Button onPress={() => {
+            navigation.goBack();
+          }}>
             <Text
               style={{
                 color: "#ED8A2F",
                 textDecorationLine: "underline",
               }}
             >
-              cancelar
+              Cancelar
             </Text>
           </Button>
         </View>

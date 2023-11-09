@@ -11,7 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { styles, theme } from '../styles/RegisterDataStyle.js';
 
-export function RegisterDataScreen() {
+export function RegisterProfileScreen() {
 	const [dateBirth, setDateBirth] = React.useState();
 	const [date, setDate] = React.useState(new Date());
 	const [showPicker, setShowPicker] = React.useState(false);
@@ -91,7 +91,7 @@ export function RegisterDataScreen() {
 								textDecorationLine: 'underline',
 							}}
 						>
-							cancelar
+							Cancelar
 						</Text>
 					</Button>
 				</View>
