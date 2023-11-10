@@ -1,18 +1,19 @@
-import { Button, Provider as PaperProvider } from 'react-native-paper';
+import { useEffect } from 'react';
+import { Pressable } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { useFonts, Montserrat_400Regular, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { HomeScreen, LoginScreen, ProfileScreen, RegisterUserScreen, RegisterProfileScreen } from './src/screens';
 
+import { supabase } from './src/lib/supabase';
+import { useUserStore } from './src/stores';
 import { Icons } from './src/components';
 
 import theme from './src/styles/LoginStyle';
-import { useUserStore } from './src/stores';
-import { supabase } from './src/lib/supabase';
-import { useEffect, useState } from 'react';
-import { Pressable } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
