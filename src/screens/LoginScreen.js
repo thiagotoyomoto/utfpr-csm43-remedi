@@ -34,7 +34,7 @@ export function LoginScreen() {
 		setIsLoading(false);
 
 		if(!error) {
-			navigation.replace('HomeTabs');
+			navigation.replace('Sidebar');
 		}
 	}
 
