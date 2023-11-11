@@ -9,8 +9,9 @@ import {
 } from 'react-native-paper';
 
 import { styles, theme } from '../styles/LoginStyle.js';
-import { supabase } from '../lib/supabase.js';
 import { useNavigation } from '@react-navigation/native';
+
+import { auth } from '@/auth';
 
 export function LoginScreen() {
 	const navigation = useNavigation();
@@ -22,7 +23,7 @@ export function LoginScreen() {
 	async function onSignIn() {
 		setIsLoading(true);
 
-		const { error } = await supabase.auth.signInWithPassword({
+		const { error } = await auth.signIn({
 			email: email,
 			password: password
 		});
