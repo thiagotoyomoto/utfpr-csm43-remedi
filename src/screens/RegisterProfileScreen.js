@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Pressable, Platform } from 'react-native';
+import { View, Pressable, Platform, ImageBackground } from 'react-native';
 import {
 	Button,
 	Text,
@@ -42,7 +42,7 @@ export function RegisterProfileScreen() {
 	};
 	return (
 		<PaperProvider theme={theme}>
-			<View style={styles.container}>
+			<ImageBackground style={styles.container} source={background}>
 				<View style={styles.topView}>
 					<Text style={styles.topHeader}>Dados Pessoais</Text>
 				</View>
@@ -95,7 +95,7 @@ export function RegisterProfileScreen() {
 						</Text>
 					</Button>
 				</View>
-			</View>
+			</ImageBackground>
 		</PaperProvider>
 	);
 }

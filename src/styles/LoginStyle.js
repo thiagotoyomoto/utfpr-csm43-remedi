@@ -1,11 +1,9 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { StyleSheet} from "react-native";
 import { winWidth, colors } from "./GlobalStyles";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
   },

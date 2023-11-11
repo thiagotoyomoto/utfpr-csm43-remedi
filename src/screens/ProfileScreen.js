@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ImageBackground } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from '../styles/ProfileStyle.js';
+import background from '../../assets/background.png'
 import Badge from '../../assets/icons/badge2.svg';
 import Edit  from '../../assets/icons/edit.svg';
 export function ProfileScreen() {
 	return (
 		<View style={{ flex: 1 }}>
-			<View style={styles.topBox}>
+			<ImageBackground style={styles.topBox} source={background}>
 					<Edit
 					width={36}
 					height={36}
@@ -21,7 +22,8 @@ export function ProfileScreen() {
 					/>
 				</View>
 				<Text style={styles.profileName}>Gato Maluco</Text>
-			</View>
+				
+			</ImageBackground>
 			<View style={styles.bottomBox}>
 				<View style={styles.achievementsBox}>
 					<Text style={styles.achievementsTittle}>Consquistas</Text>
@@ -46,7 +48,7 @@ export function ProfileScreen() {
 function Achievement() {
 	return (
 		<View style={{ flexDirection: 'row', padding: 6}}>
-			<View style={{borderWidth: 6,   borderColor: "#307FAB",  borderRadius: 5, marginRight: 8}}>
+			<View style={{borderWidth: 6,   borderColor: "#3454a4",  borderRadius: 5, marginRight: 8}}>
 				<Badge
 					width={36}
 					height={36}
@@ -63,7 +65,7 @@ function Achievement() {
 function LockAchievement() {
 	return (
 		<View style={{ flexDirection: 'row', padding: 6}}>
-				<View style={{width:48, height: 48, backgroundColor: "#8BBCD8",  borderRadius: 5, marginRight: 8}}>					
+				<View style={{width:48, height: 48, backgroundColor: "#7c90bf",  borderRadius: 5, marginRight: 8}}>					
 				</View>
 				<View style={{padding: 6}}>
 					<Text style={{fontSize: 15}}>Lorem ipsum</Text>
