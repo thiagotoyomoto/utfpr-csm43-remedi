@@ -21,18 +21,21 @@ import { useUserStore } from './src/stores';
 import { Icons } from './src/components';
 
 import theme from './src/styles/LoginStyle';
+import { useWeekDayStore } from '@/stores/weekDay';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-const DrawerContext = createContext();
-
 export default function App() {
+	const { setWeekDay } = useWeekDayStore();
+
 	const user = useUserStore((state) => state.user);
 	const setUser = useUserStore((state) => state.setUser);
 
 	useEffect(() => {
+		setWeekDay();
+
 		supabase.auth
 			.getSession()
 			.then(({ data, error }) => {
@@ -118,7 +121,7 @@ function Navbar() {
         <Tab.Screen name="Profile" component={ProfileScreen} options={{
           headerTitle: "Perfil"
         }} />
-        <Tab.Screen name="Medications" component={ProfileScreen} options={{
+        <Tab.Screen name="Medications" component={MedicationListScreen} options={{
           headerTitle: "Medicações"
         }} />
         <Tab.Screen name="Stock" component={ProfileScreen} options={{

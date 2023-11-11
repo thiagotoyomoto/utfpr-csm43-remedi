@@ -5,9 +5,11 @@ import { supabase } from '../lib/supabase';
 import { Icons } from '../components';
 
 import {styles} from '../styles/HomeScreenStyle';
+import { useWeekDayStore } from '@/stores';
 
 export function HomeScreen() {
-    const [diaDaSemana, setDiaDaSemana] = useState('');
+    const { weekDay } = useWeekDayStore();
+
     const [isLoading, setLoading] = useState(false);
     const [medications, setMedications] = useState([]);
 
@@ -33,17 +35,11 @@ export function HomeScreen() {
                 setLoading(false);
             });
     }, []);
-      
-    useEffect(() => {
-        const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-        const dataAtual = new Date();
-        setDiaDaSemana(diasDaSemana[dataAtual.getDay()]);
-    }, []);
 
 	return (
 		<View style={styles.table}>
             <Text style={styles.tableTitle}>
-               Hoje - {diaDaSemana}
+               Hoje - {weekDay}
             </Text>
             {medications.map(({ id, name }) => <Medication key={id} time={'10:00'} name={name} />)}
         </View>
