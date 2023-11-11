@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Alert, View } from 'react-native';
+import { Alert, ImageBackground, View } from 'react-native';
 import {
 	Button,
 	Text,
@@ -10,6 +10,7 @@ import {
 
 import { styles, theme } from '../styles/LoginStyle.js';
 import { useNavigation } from '@react-navigation/native';
+import background from '../../assets/background.png'
 
 import { auth } from '@/auth';
 
@@ -41,11 +42,12 @@ export function LoginScreen() {
 
 	return (
 		<PaperProvider theme={theme}>
-			<View style={styles.container}>
+			<ImageBackground style={styles.container} source={background}>
 				<Text
 					style={{
 						fontSize: 50,
 						marginVertical: 30,
+						color: "#FFF"
 					}}
 				>
 					REMEDI
@@ -90,7 +92,7 @@ export function LoginScreen() {
 						Criar!
 					</Text>
 				</Button>
-			</View>
+			</ImageBackground>
 		</PaperProvider>
 	);
 }

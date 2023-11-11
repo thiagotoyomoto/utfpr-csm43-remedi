@@ -7,7 +7,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { HomeScreen, LoginScreen, ProfileScreen, RegisterUserScreen, RegisterProfileScreen } from './src/screens';
+import {
+	HomeScreen,
+	LoginScreen,
+	ProfileScreen,
+	RegisterUserScreen,
+	RegisterProfileScreen,
+	MedicationListScreen,
+} from './src/screens';
 
 import { supabase } from './src/lib/supabase';
 import { useUserStore } from './src/stores';
@@ -22,33 +29,34 @@ const Tab = createBottomTabNavigator();
 const DrawerContext = createContext();
 
 export default function App() {
-  const user = useUserStore(state => state.user);
-  const setUser = useUserStore(state => state.setUser);
+	const user = useUserStore((state) => state.user);
+	const setUser = useUserStore((state) => state.setUser);
 
-  useEffect(() => {
-    supabase.auth.getSession()
-      .then(({ data, error }) => {
-        const session = data.session;
-        const user = session?.user;
-        if (user) {
-          setUser(user);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+	useEffect(() => {
+		supabase.auth
+			.getSession()
+			.then(({ data, error }) => {
+				const session = data.session;
+				const user = session?.user;
+				if (user) {
+					setUser(user);
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}, []);
 
-  const [fontsLoaded, fontError] = useFonts({
-    'Montserrat-Regular': Montserrat_400Regular,
-    'Montserrat-Bold': Montserrat_700Bold,
-    'Gotham-Regular': require('./assets/fonts/Gotham-Book.otf'),
-    'Gotham-Bold': require('./assets/fonts/Gotham-Bold.otf')
-  });
+	const [fontsLoaded, fontError] = useFonts({
+		'Montserrat-Regular': Montserrat_400Regular,
+		'Montserrat-Bold': Montserrat_700Bold,
+		'Gotham-Regular': require('./assets/fonts/Gotham-Book.otf'),
+		'Gotham-Bold': require('./assets/fonts/Gotham-Bold.otf'),
+	});
 
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
+	if (!fontsLoaded && !fontError) {
+		return null;
+	}
 
   return (
     <PaperProvider theme={theme}>
@@ -121,20 +129,44 @@ function Navbar() {
 }
 
 function createTabBarIcon(routeName) {
-  return ({ focused, color }) => {
-    const size = 36;
+	return ({ focused, color }) => {
+		const size = 36;
 
-    if (routeName === 'Home') {
-      return <Icons.Home size={size} color={color} fill={focused} />
-    }
-    if (routeName === 'Profile') {
-      return <Icons.Person size={size} color={color} fill={focused} />
-    }
-    if (routeName === 'Medications') {
-      return <Icons.Prescription size={size} color={color} fill={focused} />
-    }
-    if (routeName === 'Stock') {
-      return <Icons.Package size={size} color={color} fill={focused} />
-    }
-  }
+		if (routeName === 'Home') {
+			return (
+				<Icons.Home
+					size={size}
+					color={color}
+					fill={focused}
+				/>
+			);
+		}
+		if (routeName === 'Profile') {
+			return (
+				<Icons.Person
+					size={size}
+					color={color}
+					fill={focused}
+				/>
+			);
+		}
+		if (routeName === 'Medications') {
+			return (
+				<Icons.Prescription
+					size={size}
+					color={color}
+					fill={focused}
+				/>
+			);
+		}
+		if (routeName === 'Stock') {
+			return (
+				<Icons.Package
+					size={size}
+					color={color}
+					fill={focused}
+				/>
+			);
+		}
+	};
 }
