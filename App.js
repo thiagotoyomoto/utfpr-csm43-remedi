@@ -20,7 +20,7 @@ import { useProfileStore, useUserStore } from '@/stores';
 import { Icons } from '@/components';
 
 import theme from '@/styles/LoginStyle';
-import { useWeekDayStore } from '@/stores/weekDay';
+import { useWeekDayStore } from '@/stores/useWeekDayStore';
 import { auth } from '@/auth';
 
 const Stack = createNativeStackNavigator();
@@ -28,10 +28,9 @@ const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const { setWeekDay } = useWeekDayStore();
-
   const { user, setUser } = useUserStore();
-  const { profile, setProfile } = useProfileStore();
+  const { setProfile } = useProfileStore();
+  const { setWeekDay } = useWeekDayStore();
 
   useEffect(() => {
     (async () => {
