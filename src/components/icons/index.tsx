@@ -1,3 +1,5 @@
+import Badge from './Badge';
+import Edit from './Edit';
 import Error from './Error';
 import Home from './Home';
 import Menu from './Menu';
@@ -10,6 +12,8 @@ import Prescription from './Prescription';
 import Warning from './Warning';
 
 export const Icons = {
+    Badge,
+    Edit,
     Error,
     Home,
     Menu,
@@ -21,3 +25,5 @@ export const Icons = {
     Prescription,
     Warning
 };
+
+export * from './props';

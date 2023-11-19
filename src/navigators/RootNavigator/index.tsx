@@ -8,9 +8,20 @@ import { useProfileStore } from "@/stores";
 import { createTabBarIcon } from "./utils/createTabBarIcon";
 import { SidebarNavigatorParamsForNavigator } from "../SidebarNavigator";
 
-import { HomeScreen, MedicationListScreen, ProfileScreen } from "@/screens";
+import { EditProfileScreen, HomeScreen, MedicationListScreen, ProfileScreen } from "@/screens";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootNavigatorParams>();
+
+export type RootNavigatorParams = {
+  'Home': undefined,
+  'Profile': undefined,
+  'Profile/Edit': undefined,
+  'Medications': undefined,
+  'Stock': undefined
+}
+
+export type RootNavigatorParamsForNavigator = NativeStackNavigationProp<RootNavigatorParams>;
 
 export function RootNavigator() {
   const navigation = useNavigation<SidebarNavigatorParamsForNavigator>();
@@ -46,6 +57,12 @@ export function RootNavigator() {
       }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{
         headerTitle: "Perfil"
+      }} />
+      <Tab.Screen name="Profile/Edit" component={EditProfileScreen} options={{
+        tabBarItemStyle: {
+          display: "none"
+        },
+        headerTitle: "Editar Perfil"
       }} />
       <Tab.Screen name="Medications" component={MedicationListScreen} options={{
         headerTitle: "Medicações"

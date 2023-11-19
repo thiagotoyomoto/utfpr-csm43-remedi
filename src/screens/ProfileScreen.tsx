@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, Image, ImageBackground, FlatList } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, IconButton, TouchableRipple } from 'react-native-paper';
 import { styles } from '../styles/ProfileStyle.js';
 
-import Badge from '@assets/icons/badge2.svg';
-import Edit from '@assets/icons/edit.svg';
+import { Icons } from '@/components';
 import { useProfileStore } from '@/stores/useProfileStore';
+import { useNavigation } from '@react-navigation/native';
+import { RootNavigatorParamsForNavigator } from '@/navigators'
 
 const profileImage = require('@assets/fotoBonita.jpg');
 const backgroundImage = require('@assets/background.png');
@@ -34,17 +35,18 @@ const achivements = [
 ];
 
 export function ProfileScreen() {
+  const navigator = useNavigation<RootNavigatorParamsForNavigator>();
+
   const { profile } = useProfileStore()
 
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground style={styles.topBox} source={backgroundImage}>
-        <Edit
-          width={36}
-          height={36}
-          fill="#FFF"
-          style={styles.edit}
-        />
+        <TouchableRipple style={styles.editButton} onPress={() => {
+          navigator.navigate('Profile/Edit')
+        }}>
+          <Icons.Edit size={36} color={'#FFF'} />
+        </TouchableRipple>
         <View style={styles.pictureBox}>
           <Image
             style={styles.profilePicture}
@@ -64,12 +66,12 @@ export function ProfileScreen() {
           }
         />
         <Button
-          mode="conteined"
+          mode="contained"
           buttonColor="#ED8A2F"
           textColor="#FFF"
           style={styles.buttonPremium}
         >
-          <Text>Ativar premium</Text>
+          <Text>Ativar Premium</Text>
         </Button>
       </View>
     </View>
@@ -83,28 +85,16 @@ function Achievement(props) {
     <View style={{ flexDirection: 'row', padding: 6 }}>
       <View style={{ width: 48, height: 48, borderWidth: 6, backgroundColor: color, borderColor: color, borderRadius: 5, marginRight: 8 }}>
         {props.unlocked ?
-          <Badge
-            width={36}
-            height={36}
-            fill="#FFF"
+          <Icons.Badge
+            size={36}
+            fill={true}
+            color={"#FFF"}
           /> : null
         }
       </View>
       <View style={{ padding: 6 }}>
         <Text style={{ fontSize: 15 }}>{props.title}</Text>
       </View>
-    </View>
-  );
-}
-function LockAchievement() {
-  return (
-    <View style={{ flexDirection: 'row', padding: 6 }}>
-      <View style={{ width: 48, height: 48, backgroundColor: "#7c90bf", borderRadius: 5, marginRight: 8 }}>
-      </View>
-      <View style={{ padding: 6 }}>
-        <Text style={{ fontSize: 15 }}>Lorem ipsum</Text>
-      </View>
-
     </View>
   );
 }

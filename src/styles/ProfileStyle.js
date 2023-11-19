@@ -9,10 +9,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around'
     },
-    edit :{
+    editButton :{
         position: 'absolute',
-        right: 16,
-        top: 16
+        right: 12,
+        top: 12,
+        padding: 8,
+        borderRadius: 100
     },
     bottomBox: {
         flex: 1
