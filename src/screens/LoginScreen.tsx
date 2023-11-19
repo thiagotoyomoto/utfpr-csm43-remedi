@@ -8,40 +8,50 @@ import {
 	Provider as PaperProvider,
 } from 'react-native-paper';
 
-import { styles, theme } from '../styles/LoginStyle.js';
+import { styles } from '../styles/LoginStyle';
 import { useNavigation } from '@react-navigation/native';
 import background from '../../assets/background.png'
 
 import { auth } from '@/auth';
+import { useUserStore } from '@/stores/useUserStore';
+import { useProfileStore } from '@/stores/useProfileStore';
+import { SignNavigatorParamsForNavigator } from '@/navigators';
 
 export function LoginScreen() {
-	const navigation = useNavigation();
+	const navigation = useNavigation<SignNavigatorParamsForNavigator>();
+
+	const { setUser } = useUserStore();
+	const { setProfile } = useProfileStore();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setLoading] = useState(false);
 
 	async function onSignIn() {
-		setIsLoading(true);
+		setLoading(true);
 
-		const { error } = await auth.signIn({
-			email: email,
-			password: password
-		});
+		try {
+			const user = await auth.signIn({
+				email: email,
+				password: password
+			});
 
-		if(error) {
-			Alert.alert(error.message);
-		}
-
-		setIsLoading(false);
-
-		if(!error) {
-			navigation.replace('Sidebar');
+			
+			const profile = await auth.getProfile();
+			
+			setUser(user);
+			setProfile(profile);
+			
+			navigation.navigate('SidebarNavigator');
+		} catch(err) {
+			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	}
 
 	return (
-		<PaperProvider theme={theme}>
+		<PaperProvider>
 			<ImageBackground style={styles.container} source={background}>
 				<Text
 					style={{
@@ -54,7 +64,7 @@ export function LoginScreen() {
 				</Text>
 				<TextInput
 					label="Email"
-					autoCompleteType="email"
+					autoComplete="email"
 					onChangeText={setEmail}
 					style={[styles.input, styles.emailInput]}
 				/>
@@ -70,7 +80,7 @@ export function LoginScreen() {
 					</Text>
 				</Button>
 				<Button
-					mode="conteined"
+					mode="contained"
 					buttonColor="#ED8A2F"
 					style={styles.buttonLogin}
 					onPress={onSignIn}

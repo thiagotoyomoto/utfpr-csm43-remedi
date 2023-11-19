@@ -34,7 +34,7 @@ export class SupabaseAdapter implements Auth {
     public async getUser(): Promise<User> {
         const { data, error } = await supabase.auth.getSession();
 
-        if(error) {
+        if(error || !data.session) {
             throw new UnableToGetUserError();
         }
 
