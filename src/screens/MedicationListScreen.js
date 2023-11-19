@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ImageBackground } from 'react-native';
 import {
 	Button,
@@ -7,20 +7,24 @@ import {
 	Provider as PaperProvider,
 } from 'react-native-paper';
 
-import { styles, theme } from '../styles/MedicationListScreenStyle.js';
-import background from '../../assets/background.png'
+import { styles } from '../styles/MedicationListScreenStyle';
+
 import TrashIcon from '../../assets/icons/trash.svg';
 import MedicationIcon from '../../assets/icons/medication.svg';
+import { useMedicationsStore } from '@/stores/useMedicationsStore';
+
+const backgroundImage = require('@assets/background.png');
 
 export function MedicationListScreen() {
-	const [searchQuery, setSearchQuery] = React.useState('');
+	const [searchQuery, setSearchQuery] = useState('');
+	const { medications } = useMedicationsStore();
 
 	const onChangeSearch = (query) => setSearchQuery(query);
 
 	return (
-		<PaperProvider theme={theme}>
+		<PaperProvider>
 			<View style={styles.container}>
-                <ImageBackground style={styles.searchBox} source={background}>
+                <ImageBackground style={styles.searchBox} source={backgroundImage}>
 					<Searchbar
 						placeholder="Pesquisar"
 						onChangeText={onChangeSearch}
@@ -29,9 +33,9 @@ export function MedicationListScreen() {
 					/>
                 </ImageBackground>
 				<View style={styles.medicationList}>
-					<MedicationItem medicationName="Fluvoxamine" />
-                    <MedicationItem medicationName="Rivotril" />
-                    <MedicationItem medicationName="Alprazolam" />
+					{Array.from(medications.values()).map((medication) => (
+						<MedicationItem key={medication.name} medicationName={medication.name} />
+					))}
 				</View>
                 <Button
 					mode="conteined"

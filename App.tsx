@@ -3,16 +3,16 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { useFonts, Montserrat_400Regular, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { useProfileStore, useUserStore } from '@/stores';
-
-import { useWeekDayStore } from '@/stores/useWeekDayStore';
+import { supabase } from '@/lib/supabase';
 import { auth } from '@/auth';
 import { SignNavigator } from '@/navigators';
+import { useMedicationsStore, useProfileStore, useWeekDayStore, useUserStore } from '@/stores';
 
 export default function App() {
   const { user, setUser } = useUserStore();
   const { setProfile } = useProfileStore();
   const { setWeekDay } = useWeekDayStore();
+  const { setMedications } = useMedicationsStore();
   const [ isLoading, setLoading ] = useState(true);
 
   useEffect(() => {
@@ -21,17 +21,21 @@ export default function App() {
   
       try {
         const user = await auth.getUser();
-        console.debug(user)
         const profile = await auth.getProfile();
-        console.debug(profile)
   
         setUser(user);
         setProfile(profile);
+
+        const medications = (await supabase.from('medications').select('id,name,stock,frequency,initial_time')).data;
+        setMedications(medications);
       } catch(err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
 
-      setLoading(false);
+      
+
     })()
   }, []);
 

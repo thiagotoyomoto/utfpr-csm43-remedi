@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
     },
     medicineNotificationOn: {
         margin:  4
+    },
+    dayHeader: {
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 });
 

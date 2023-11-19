@@ -3,7 +3,6 @@ import {colors}  from './GlobalStyles';
 
 const styles = StyleSheet.create({
     topBox: {
-        flex: 1,
         padding: 12,
         backgroundColor: colors.primary,
         minHeight: 260,
@@ -12,11 +11,11 @@ const styles = StyleSheet.create({
     },
     edit :{
         position: 'absolute',
-        right: 30,
-        top: 20
+        right: 16,
+        top: 16
     },
     bottomBox: {
-
+        flex: 1
     },
     pictureBox: {
         borderRadius: 100,
@@ -43,23 +42,23 @@ const styles = StyleSheet.create({
         fontSize: 32,
         color: "#FFF"
     },
-    achievementsBox: {
-        padding: 24
-    },
-    achievementsTittle: {
+    achievementsTitle: {
+        marginHorizontal: 24,
+        marginVertical: 16,
         fontSize: 20
     },
-    badgeList: {
-        width: 42,
-        height: 42,
-        backgroundColor: colors.primary,
+    achievementsList: {
+        marginHorizontal: 24
     },
     buttonPremium: {
         width: 200,
-        borderRadius: 5, 
+        height: 50,
+        borderRadius: 5,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginBottom: 40
+        marginVertical: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
