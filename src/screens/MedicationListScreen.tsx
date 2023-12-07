@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, Pressable } from 'react-native';
 import {
 	Button,
 	Text,
@@ -12,6 +12,8 @@ import { styles } from '../styles/MedicationListScreenStyle';
 import TrashIcon from '../../assets/icons/trash.svg';
 import MedicationIcon from '../../assets/icons/medication.svg';
 import { useMedicationsStore } from '@/stores/useMedicationsStore';
+import { useNavigation } from '@react-navigation/native';
+import { RootNavigatorParamsForNavigator } from '@/navigators';
 
 const backgroundImage = require('@assets/background.png');
 
@@ -24,28 +26,32 @@ export function MedicationListScreen() {
 	return (
 		<PaperProvider>
 			<View style={styles.container}>
-                <ImageBackground style={styles.searchBox} source={backgroundImage}>
+				<ImageBackground
+					style={styles.searchBox}
+					source={backgroundImage}
+				>
 					<Searchbar
 						placeholder="Pesquisar"
 						onChangeText={onChangeSearch}
 						value={searchQuery}
 						style={styles.searchbar}
 					/>
-                </ImageBackground>
+				</ImageBackground>
 				<View style={styles.medicationList}>
 					{Array.from(medications.values()).map((medication) => (
-						<MedicationItem key={medication.name} medicationName={medication.name} />
+						<MedicationItem
+							key={medication.name}
+							medicationName={medication.name}
+						/>
 					))}
 				</View>
-                <Button
-					mode="conteined"
+				<Button
+					mode="contained"
 					buttonColor="#ED8A2F"
 					textColor="#FFF"
 					style={styles.buttonNew}
 				>
-					<Text style={styles.buttonNewText}>
-                        Novo
-                    </Text>
+					<Text style={styles.buttonNewText}>Novo</Text>
 				</Button>
 			</View>
 		</PaperProvider>
@@ -53,9 +59,12 @@ export function MedicationListScreen() {
 }
 
 function MedicationItem(props) {
+	const navigation = useNavigation <RootNavigatorParamsForNavigator> ();
 	return (
 		<View style={styles.medication_item}>
-			<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+			<Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={ () => {
+				navigation.navigate('Medication')
+			}}>
 				<View style={styles.medicationIconCircle}>
 					<MedicationIcon
 						width={38}
@@ -67,7 +76,8 @@ function MedicationItem(props) {
 				<Text style={styles.medicationName}>
 					{props.medicationName}
 				</Text>
-			</View>
+			</Pressable>
+
 			<TrashIcon
 				width={28}
 				height={28}
