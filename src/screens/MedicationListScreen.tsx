@@ -4,10 +4,12 @@ import {
 	Button,
 	Text,
 	Searchbar,
+	Portal,
+	Modal,
 	Provider as PaperProvider,
 } from 'react-native-paper';
 
-import { styles } from '../styles/MedicationListScreenStyle';
+import { styles, theme } from '../styles/MedicationListScreenStyle';
 
 import TrashIcon from '../../assets/icons/trash.svg';
 import MedicationIcon from '../../assets/icons/medication.svg';
@@ -24,9 +26,33 @@ export function MedicationListScreen() {
 	const onChangeSearch = (query) => setSearchQuery(query);
 	const navigation = useNavigation <RootNavigatorParamsForNavigator> ();
 	
+	const [visibleModal, setVisibleModal] = React.useState(false);
+
+	const showModal = () => setVisibleModal(true);
+	const hideModal = () => setVisibleModal(false);
+
 	return (
 		<PaperProvider>
 			<View style={styles.container}>
+				<Portal>
+					<Modal visible={visibleModal} onDismiss={hideModal} contentContainerStyle={styles.modal}>
+						<View>
+							<Text style={styles.textModal}>Atenção! O medicamento selecionado irá ser exclúido do seu perfil</Text>
+						</View>
+						<View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginVertical: 20}}>
+							<Button style={styles.cancelBtn} theme={theme} onPress={hideModal}>
+								<Text style={styles.cancelText}>
+									Cancelar
+								</Text>
+							</Button>
+							<Button mode="contained" style={styles.confirmBtn} theme={theme} onPress={hideModal}>
+								<Text style={styles.confirmText}>
+									Ok
+								</Text>
+							</Button>
+						</View>
+					</Modal>
+				</Portal>
 				<ImageBackground
 					style={styles.searchBox}
 					source={backgroundImage}
@@ -43,6 +69,7 @@ export function MedicationListScreen() {
 						<MedicationItem
 							key={medication.name}
 							medicationName={medication.name}
+							showModal={showModal}
 						/>
 					))}
 				</View>
@@ -80,13 +107,14 @@ function MedicationItem(props) {
 					{props.medicationName}
 				</Text>
 			</Pressable>
-
-			<TrashIcon
-				width={28}
-				height={28}
-				fill="#ED8A2F"
-				style={styles.trashIcon}
-			/>
+			<Pressable onPress={props.showModal}>
+				<TrashIcon
+					width={28}
+					height={28}
+					fill="#ED8A2F"
+					style={styles.trashIcon}
+				/>
+			</Pressable>
 		</View>
 	);
 }

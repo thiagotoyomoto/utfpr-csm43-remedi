@@ -63,6 +63,42 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: '#FFF',
 	},
+	modal: {
+		backgroundColor: '#FFF',
+		padding: 24,
+		width: '90%',
+		marginLeft: 'auto',
+		marginRight: 'auto'
+	},
+	textModal: {
+		textAlign: 'justify',
+		fontSize: 16,
+		marginVertical: 25,
+	},
+	confirmBtn: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 130,
+		height: 50,
+		borderRadius: 5,
+		backgroundColor: colors.accent
+	},
+	confirmText: {
+		color: '#FFF',
+		fontSize: 16,
+		fontWeight: 'bold'
+	},
+	cancelBtn: {
+		width: 130,
+		height: 50,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	cancelText: {
+		color: colors.primary,
+		fontSize: 16,
+		fontWeight: 'bold'
+	}
 });
 
 export { styles, theme };
