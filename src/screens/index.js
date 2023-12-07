@@ -7,3 +7,4 @@ export * from './SignInProfileScreen';
 export * from './SignInUserScreen';
 export * from './SignUpScreen';
 export * from './EditMedicationScreen';
+export * from './StockScreen';

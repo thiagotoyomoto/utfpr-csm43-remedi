@@ -8,7 +8,7 @@ import { useProfileStore } from "@/stores";
 import { createTabBarIcon } from "./utils/createTabBarIcon";
 import { SidebarNavigatorParamsForNavigator } from "../SidebarNavigator";
 
-import { EditProfileScreen, HomeScreen, MedicationListScreen, MedicationScreen, EditMedicationScreen, ProfileScreen } from "@/screens";
+import { EditProfileScreen, HomeScreen, MedicationListScreen, MedicationScreen, EditMedicationScreen, ProfileScreen, StockScreen} from "@/screens";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator<RootNavigatorParams>();
@@ -88,7 +88,7 @@ export function RootNavigator() {
           display: "none"
         },
       }} />
-      <Tab.Screen name="Stock" component={ProfileScreen} options={{
+      <Tab.Screen name="Stock" component={StockScreen} options={{
         headerTitle: "Estoque"
       }} />
     </Tab.Navigator>
