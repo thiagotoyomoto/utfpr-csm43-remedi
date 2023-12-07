@@ -22,7 +22,8 @@ export function MedicationListScreen() {
 	const { medications } = useMedicationsStore();
 
 	const onChangeSearch = (query) => setSearchQuery(query);
-
+	const navigation = useNavigation <RootNavigatorParamsForNavigator> ();
+	
 	return (
 		<PaperProvider>
 			<View style={styles.container}>
@@ -50,6 +51,8 @@ export function MedicationListScreen() {
 					buttonColor="#ED8A2F"
 					textColor="#FFF"
 					style={styles.buttonNew}
+					onPress={ () => {
+						navigation.navigate('AddMedication')}}
 				>
 					<Text style={styles.buttonNewText}>Novo</Text>
 				</Button>

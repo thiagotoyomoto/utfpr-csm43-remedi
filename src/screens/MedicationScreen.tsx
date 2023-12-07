@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ImageBackground, Pressable } from 'react-native';
+import { View, ImageBackground, Pressable, KeyboardAvoidingView} from 'react-native';
 import {
 	Button,
 	Text,
@@ -11,11 +11,12 @@ import { styles } from '../styles/MedicationScreenStyle';
 import TrashIcon from '../../assets/icons/trash-fill.svg';
 import EditIcon from '../../assets/icons/edit-fill.svg';
 import { useNavigation } from '@react-navigation/native';
+import { RootNavigatorParamsForNavigator } from '@/navigators';
 
 const backgroundImage = require('@assets/background.png');
 
 export function MedicationScreen() {
-
+    const navigation = useNavigation <RootNavigatorParamsForNavigator> ();
 	return (
 		<PaperProvider>
             <ImageBackground
@@ -29,7 +30,7 @@ export function MedicationScreen() {
                         </Text>
                     </View>
                     <View style={styles.topBoxRight}>
-                        <Pressable>
+                        <Pressable onPress={ () => {navigation.navigate('EditMedication')}}>
                             <EditIcon
                                 width={32}
                                 height={32}

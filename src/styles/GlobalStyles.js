@@ -20,6 +20,8 @@ const theme = {
 		primary: colors.primary,
 		accent: colors.accent,
 		background: '#FF0000',
+		secondaryContainer: colors.accent,
+		onSecondaryContainer: '#FFF'
 	},
 };
 
