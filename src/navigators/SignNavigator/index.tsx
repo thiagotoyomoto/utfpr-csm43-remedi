@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { LoginScreen, RegisterProfileScreen, RegisterUserScreen } from "@/screens";
+import { LoginScreen, RegisterProfileScreen, SignUpUserScreen } from "@/screens";
 
 import { SidebarNavigator } from "../SidebarNavigator";
 
@@ -25,7 +25,7 @@ export function SignNavigator(props: SignNavigatorProps) {
             headerShown: false
           }}>
             <Stack.Screen name="SignIn" component={LoginScreen} />
-            <Stack.Screen name="SignUp/User" component={RegisterUserScreen} />
+            <Stack.Screen name="SignUp/User" component={SignUpUserScreen} />
             <Stack.Screen name="SignUp/Profile" component={RegisterProfileScreen} />
             <Stack.Screen name="SidebarNavigator" component={SidebarNavigator} />
           </Stack.Navigator>

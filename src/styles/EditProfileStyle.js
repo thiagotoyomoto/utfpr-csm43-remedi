@@ -17,8 +17,9 @@ const styles = StyleSheet.create({
     },
     bottomBox: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 24
     },
     pictureBox: {
         borderRadius: 100,
@@ -59,10 +60,11 @@ const styles = StyleSheet.create({
     },
     buttonPremium: {
         width: 200,
+        height: 50,
         borderRadius: 5, 
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 80
+        justifyContent: 'center'
     }
 })
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ImageBackground, View } from 'react-native';
+import { GestureResponderEvent, ImageBackground, View } from 'react-native';
 import {
   Button,
   Text,
@@ -28,7 +28,7 @@ export function LoginScreen() {
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  async function onSignIn() {
+  async function handleSignIn() {
     setLoading(true);
 
     try {
@@ -36,18 +36,22 @@ export function LoginScreen() {
         email: email,
         password: password
       });
-      
+
       const profile = await auth.getProfile();
-      
+
       setUser(user);
       setProfile(profile);
-      
+
       navigation.navigate('SidebarNavigator');
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleCreateAccount() {
+    navigation.navigate('SignUp/User')
   }
 
   return (
@@ -65,44 +69,72 @@ export function LoginScreen() {
         <TextInput
           label="Email"
           autoComplete="email"
+          autoCapitalize="none"
           onChangeText={setEmail}
           style={[styles.input, styles.emailInput]}
         />
         <TextInput
           label="Senha"
           secureTextEntry={true}
+          autoCapitalize="none"
           onChangeText={setPassword}
           style={[styles.input, styles.passwordInput]}
         />
-        <Button>
-          <Text style={styles.textButtonForgot}>
-            Esqueci minha senha
-          </Text>
-        </Button>
-        <Button
-          mode="contained"
-          buttonColor="#ED8A2F"
-          style={styles.buttonLogin}
-          onPress={onSignIn}
-          disabled={isLoading}
-        >
-          <Text style={styles.textButtonLogin}>Login</Text>
-        </Button>
-        <Button onPress={() => {
-          navigation.navigate('SignUp/User')
-        }}>
-          <Text style={{ color: '#FFF' }}>Não possui uma conta?</Text>
-          <View />{' '}
-          <Text
-            style={{
-              color: '#ED8A2F',
-              textDecorationLine: 'underline',
-            }}
-          >
-            Criar!
-          </Text>
-        </Button>
+        <RecoverPasswordButton />
+        <LoginButton onPress={handleSignIn} disabled={isLoading} />
+        <CreateAccountButton onPress={handleCreateAccount} />
       </ImageBackground>
     </PaperProvider>
+  );
+}
+
+type RecoverPasswordButton = {};
+
+function RecoverPasswordButton(props: RecoverPasswordButton) {
+  return (
+    <Button>
+      <Text style={styles.textButtonForgot}>
+        Esqueci minha senha
+      </Text>
+    </Button>
+  );
+}
+
+type LoginButtonProps = {
+  onPress?: (e: GestureResponderEvent) => void;
+  disabled?: boolean;
+}
+
+function LoginButton(props: LoginButtonProps) {
+  return (
+    <Button
+      {...props}
+      mode="contained"
+      buttonColor="#ED8A2F"
+      style={styles.buttonLogin}
+    >
+      <Text style={styles.textButtonLogin}>Login</Text>
+    </Button>
+  );
+}
+
+type CreateAccountButtonProps = {
+  onPress?: (e: GestureResponderEvent) => void
+}
+
+function CreateAccountButton(props: CreateAccountButtonProps) {
+  return (
+    <Button {...props}>
+      <Text style={{ color: '#FFF' }}>Não possui uma conta?</Text>
+      <View />{' '}
+      <Text
+        style={{
+          color: '#ED8A2F',
+          textDecorationLine: 'underline',
+        }}
+      >
+        Criar!
+      </Text>
+    </Button>
   );
 }

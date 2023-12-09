@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		marginLeft: 8,
 	},
-	trashIcon: {},
 	buttonNew: {
 		alignItems: 'center',
 		justifyContent: 'center',

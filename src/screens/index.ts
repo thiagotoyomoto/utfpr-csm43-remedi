@@ -2,6 +2,6 @@ export * from './EditProfileScreen';
 export * from './HomeScreen';
 export * from './MedicationListScreen'
 export * from './ProfileScreen';
-export * from './SignInProfileScreen';
-export * from './SignInUserScreen';
-export * from './SignUpScreen';
+export * from './SignUpProfileScreen';
+export * from './SignUpUserScreen';
+export * from './SignInScreen';

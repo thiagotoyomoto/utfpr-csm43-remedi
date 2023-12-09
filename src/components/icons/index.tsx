@@ -9,6 +9,7 @@ import NotificationsOff from './NotificationsOff';
 import Package from './Package';
 import Person from './Person';
 import Prescription from './Prescription';
+import Trash from './Trash';
 import Warning from './Warning';
 
 export const Icons = {
@@ -23,6 +24,7 @@ export const Icons = {
     Package,
     Person,
     Prescription,
+    Trash,
     Warning
 };
 
