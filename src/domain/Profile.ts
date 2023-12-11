@@ -5,4 +5,5 @@ export type Profile = {
     name: string;
     birthdate: string;
     gender: Gender;
+    isPremium: boolean;
 }

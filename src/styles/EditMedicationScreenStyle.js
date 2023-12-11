@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
 	},
 	frequency: {
 		width: '100%',
-		marginBottom: 18
+		marginBottom: 18,
+		backgroundColor: '#FFF',
+		borderRadius: 100
 	},
 	configBox: {
 		paddingHorizontal: 12,

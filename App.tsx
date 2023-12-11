@@ -6,10 +6,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
-import { supabase } from '@/lib/supabase';
 import { auth } from '@/auth';
 import { SignNavigator } from '@/navigators';
-import { useMedicationsStore, useProfileStore, useWeekDayStore, useUserStore } from '@/stores';
+import { useMedicationsStore, useProfileStore, useUserStore, useUserMedicationsStore, useUserTodayMedicationsStore } from '@/stores';
+import { Medication, UserMedication, UserTodayMedication } from '@/domain';
+import { supabase } from '@/lib/supabase';
+import { parse } from 'date-fns';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -22,72 +24,10 @@ Notifications.setNotificationHandler({
 export default function App() {
   const { user, setUser } = useUserStore();
   const { setProfile } = useProfileStore();
-  const { setWeekDay } = useWeekDayStore();
   const { setMedications } = useMedicationsStore();
-  const [ isLoading, setLoading ] = useState(true);
-
-  useEffect(() => {
-    
-    (async () => {
-      await registerForNotifications();
-
-      setWeekDay();
-  
-      try {
-        const user = await auth.getUser();
-        const profile = await auth.getProfile();
-  
-        setUser(user);
-        setProfile(profile);
-
-        const { data: medications, error } = await supabase.from('medications').select('id,name,stock,frequency,initial_time')
-
-        if(error) {
-          console.error(error);
-        } else if(medications) {
-          setMedications(medications);
-
-          const todayMedications = (await Promise.all(medications.map(medication => {
-            return supabase.from('today_medications_count').select('*, medication(*)').eq('medication_id', medication.id)
-          })));
-
-          console.log(todayMedications);
-
-          await Promise.all(todayMedications.map(medication => {
-            if(medication.count === 0) {
-              return supabase.from('today_medications').insert({
-                medication_id: medication.medication_id
-              })
-            }
-            return null;
-          }))
-
-          console.debug();
-
-          Notifications.scheduleNotificationAsync({
-            content: {
-              title: 'Look at that notification',
-              body: "I'm so proud of myself!",
-              priority: 'max',
-              vibrate: [0, 250, 250, 250]
-            },
-            trigger: {
-              seconds: 10
-            },
-          });
-
-
-        }
-      } catch(err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-
-      
-
-    })()
-  }, []);
+  const { setUserMedications } = useUserMedicationsStore();
+  const { setUserTodayMedications } = useUserTodayMedicationsStore();
+  const [isLoading, setLoading] = useState(true);
 
   const [fontsLoaded, fontError] = useFonts({
     'Montserrat-Regular': Montserrat_400Regular,
@@ -96,11 +36,40 @@ export default function App() {
     'Gotham-Bold': require('./assets/fonts/Gotham-Bold.otf'),
   });
 
+  useEffect(() => {
+    (async () => {
+      await registerForNotifications();
+
+      try {
+        const user = await auth.getUser();
+        setUser(user);
+
+        const profile = await auth.getProfile();
+        setProfile(profile);
+
+        const medications = await loadMedications();
+        setMedications(medications);
+
+        const userMedications = await loadUserMedications();
+        setUserMedications(userMedications);
+
+        const userTodayMedications = await loadTodayUserMedications();
+        setUserTodayMedications(userTodayMedications);
+
+        console.debug(userTodayMedications);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    })()
+  }, []);
+
   if (!fontsLoaded && !fontError) {
     return null;
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return null;
   }
 
@@ -126,4 +95,42 @@ async function registerForNotifications() {
       return;
     }
   }
+}
+
+async function loadMedications(): Promise<Medication[]> {
+  const { data, error } = await supabase.from('medications').select('id,name,leaflet_url');
+
+  return data.map(item => ({
+    id: item.id,
+    name: item.name,
+    leafletUrl: item.leaflet_url
+  }));
+}
+
+async function loadUserMedications(): Promise<UserMedication[]> {
+  const { data, error } = await supabase.from('user_medications').select('user_id,frequency,initial_time,observations,stock,medications(id, name, leaflet_url)');
+
+
+  return data.map(item => ({
+    id: item.user_id,
+    medication_id: item.medications.id,
+    name: item.medications.name,
+    leafletUrl: item.medications.leaflet_url,
+    frequency: item.frequency,
+    initialTime: item.initial_time,
+    observations: item.observations,
+    stock: item.stock
+  }));
+}
+
+async function loadTodayUserMedications(): Promise<UserTodayMedication[]> {
+  const { data, error } = await supabase.from('user_today_medications').select('*, medications(name)');
+
+  return data.map(item => {
+    return {
+      id: item.id,
+      name: item.medications.name,
+      time: item.time
+    }
+  });
 }

@@ -8,7 +8,7 @@ import { useProfileStore } from "@/stores";
 import { createTabBarIcon } from "./utils/createTabBarIcon";
 import { SidebarNavigatorParamsForNavigator } from "../SidebarNavigator";
 
-import { EditProfileScreen, HomeScreen, MedicationListScreen, MedicationScreen, EditMedicationScreen, ProfileScreen, StockScreen} from "@/screens";
+import { EditProfileScreen, HomeScreen, MedicationListScreen, MedicationScreen, EditMedicationScreen, ProfileScreen, StockScreen, MedicationScreenParams, EditMedicationScreenParams, AddMedicationScreen } from "@/screens";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator<RootNavigatorParams>();
@@ -18,8 +18,9 @@ export type RootNavigatorParams = {
   'Profile': undefined,
   'Profile/Edit': undefined,
   'Medications': undefined,
-  'Medication': undefined,
-  'EditMedication': undefined,
+  'Medications/Add': undefined,
+  'Medication': MedicationScreenParams,
+  'Medication/Edit': EditMedicationScreenParams,
   'AddMedication': undefined,
   'Stock': undefined
 }
@@ -70,20 +71,20 @@ export function RootNavigator() {
       <Tab.Screen name="Medications" component={MedicationListScreen} options={{
         headerTitle: "Medicações"
       }} />
-      <Tab.Screen name="Medication" component={MedicationScreen} options={{
-        headerTitle: "Medicações",
-        tabBarItemStyle: {
-          display: "none"
-        },
-      }} />
-      <Tab.Screen name="EditMedication" component={EditMedicationScreen} options={{
-        headerTitle: "Editar",
-        tabBarItemStyle: {
-          display: "none"
-        },
-      }} />
-      <Tab.Screen name="AddMedication" component={EditMedicationScreen} options={{
+      <Tab.Screen name="Medications/Add" component={AddMedicationScreen} options={{
         headerTitle: "Adicionar",
+        tabBarItemStyle: {
+          display: "none"
+        },
+      }} />
+      <Tab.Screen name="Medication" component={MedicationScreen} options={{
+        headerTitle: "Medicação",
+        tabBarItemStyle: {
+          display: "none"
+        },
+      }} />
+      <Tab.Screen name="Medication/Edit" component={EditMedicationScreen} options={{
+        headerTitle: "Editar",
         tabBarItemStyle: {
           display: "none"
         },

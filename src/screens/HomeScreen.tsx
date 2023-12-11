@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SectionList } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { Divider, Icons } from '@/components';
 
-import { useMedicationsStore, useWeekDayStore } from '@/stores';
+import { useUserTodayMedicationsStore } from '@/stores';
 
 import { styles } from '../styles/HomeScreenStyle';
+import { compareAsc, format, parse } from 'date-fns';
 
 export function HomeScreen() {
-  const { weekDay } = useWeekDayStore();
-  const { medications } = useMedicationsStore();
+  const { userTodayMedications } = useUserTodayMedicationsStore();
 
   return (
     <View style={styles.table}>
@@ -19,19 +19,30 @@ export function HomeScreen() {
         </Text>
         <Divider />
       </View>
-      {Array.from(medications.values()).map(({ id, name }) =>
-        <Medication key={id} time={'10:00'} name={name} />
-      )}
+      {
+        Array.from(userTodayMedications.values())
+          .map(value => ({ ...value, time: parse(value.time, 'HH:mm:ssX', new Date()) }))
+          .sort((a, b) => compareAsc(a.time, b.time))
+          .map(value => ({ ...value, time: format(value.time, 'HH:mm') }))
+          .map(({ id, name, time }) =>
+            <Medication key={id} time={time} name={name} />
+          )
+      }
     </View>
   );
 }
 
-function Medication({ time, name }) {
+type MedicationProps = {
+  name: string;
+  time: string;
+}
+
+function Medication(props: MedicationProps) {
   return (
     <View style={styles.medicine}>
       <View style={styles.medicineRightSide}>
-        <Text style={styles.medicineTime}>{time}</Text>
-        <Text style={styles.medicineName}>{name}</Text>
+        <Text style={styles.medicineTime}>{props.time}</Text>
+        <Text style={styles.medicineName}>{props.name}</Text>
       </View>
       <View style={styles.medicineLeftSide}>
         <View style={styles.medicineAlert}>
@@ -43,4 +54,10 @@ function Medication({ time, name }) {
       </View>
     </View>
   );
+}
+
+function formatTime(time: string): string {
+  console.debug(time);
+  const date = parse(time, 'HH:mm:ssX', new Date());
+  return format(date, 'HH:mm');
 }

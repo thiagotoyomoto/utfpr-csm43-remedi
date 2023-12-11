@@ -66,7 +66,8 @@ export function EditProfileScreen() {
       id: profile.id,
       name,
       birthdate,
-      gender
+      gender,
+      isPremium: false
     });
 
     setLoading(false);

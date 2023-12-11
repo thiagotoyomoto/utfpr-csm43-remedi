@@ -1,3 +1,4 @@
+export * from './AddMedicationScreen';
 export * from './EditProfileScreen';
 export * from './HomeScreen';
 export * from './MedicationListScreen';
